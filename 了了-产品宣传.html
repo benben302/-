@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>了了 — 说出来，被接住</title>
+<style>
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: 'PingFang SC', 'Hiragino Sans GB', -apple-system, sans-serif;
+  color: #1c1917;
+  background: #f3ede6;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+
+/* ── Typography ── */
+.serif { font-family: 'STSong', 'Songti SC', 'SimSun', serif; }
+.sans { font-family: 'PingFang SC', 'Hiragino Sans GB', -apple-system, sans-serif; }
+
+h1, h2, h3, .display {
+  font-family: 'STSong', 'Songti SC', 'SimSun', serif;
+  font-weight: 400;
+}
+
+/* ── Colors ── */
+:root {
+  --bg: #f3ede6;
+  --card: #faf8f4;
+  --ink: #1c1917;
+  --ink-soft: #5c5650;
+  --ink-muted: #9b948b;
+  --sage: #7a9e8a;
+  --copper: #b07545;
+  --border: rgba(160,140,120,0.15);
+}
+
+/* ── Layout ── */
+section { padding: 0 6vw; }
+.container { max-width: 960px; margin: 0 auto; }
+
+/* ── Hero ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 8vh;
+  padding-bottom: 8vh;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -20%;
+  width: 80%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(122,158,138,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  right: -15%;
+  width: 60%;
+  height: 80%;
+  background: radial-gradient(ellipse at center, rgba(176,117,69,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+.brand-word {
+  font-size: clamp(96px, 16vw, 160px);
+  color: var(--ink);
+  letter-spacing: 0.08em;
+  position: relative;
+  z-index: 1;
+  line-height: 1;
+  margin-bottom: 3vh;
+}
+.hero-tagline {
+  font-size: clamp(18px, 3.2vw, 24px);
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 5vh;
+}
+.hero-tagline span { color: var(--sage); }
+.hero .divider {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent, var(--copper), transparent);
+  margin: 0 auto 4vh;
+  position: relative;
+  z-index: 1;
+}
+.hero-desc {
+  font-size: clamp(15px, 2.4vw, 17px);
+  color: var(--ink-muted);
+  max-width: 420px;
+  line-height: 2;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Core Capabilities ── */
+.caps {
+  padding-top: 12vh;
+  padding-bottom: 12vh;
+}
+.caps .section-label {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--sage);
+  text-transform: uppercase;
+  margin-bottom: 4vh;
+}
+.caps h2 {
+  font-size: clamp(28px, 5vw, 40px);
+  color: var(--ink);
+  line-height: 1.5;
+  margin-bottom: 8vh;
+}
+.caps h2 em {
+  font-style: normal;
+  color: var(--copper);
+}
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2px;
+  background: var(--border);
+  border-radius: 24px;
+  overflow: hidden;
+}
+.cap-item {
+  background: var(--card);
+  padding: 40px 32px 36px;
+}
+.cap-num {
+  font-family: 'STSong', 'Songti SC', 'SimSun', serif;
+  font-size: 48px;
+  color: var(--sage);
+  opacity: 0.5;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.cap-item h3 {
+  font-size: 19px;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.cap-item p {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.8;
+}
+
+/* ── Two Paths ── */
+.paths {
+  padding-top: 8vh;
+  padding-bottom: 8vh;
+}
+.paths .section-label {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--sage);
+  text-transform: uppercase;
+  margin-bottom: 4vh;
+}
+.paths h2 {
+  font-size: clamp(28px, 5vw, 40px);
+  color: var(--ink);
+  line-height: 1.5;
+  margin-bottom: 8vh;
+}
+.path-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+.path-card {
+  background: var(--card);
+  border-radius: 24px;
+  padding: 44px 40px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.path-card.primary {
+  background: var(--ink);
+  color: var(--card);
+  border: none;
+}
+.path-card.primary .path-label { color: var(--sage); }
+.path-card.primary .path-title { color: #faf8f4; }
+.path-card.primary .path-step { color: rgba(250,248,244,0.6); }
+.path-card.primary .path-step-num { color: rgba(250,248,244,0.3); }
+.path-card.primary::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -30%;
+  width: 70%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(122,158,138,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.path-label {
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: var(--sage);
+  margin-bottom: 16px;
+}
+.path-title {
+  font-family: 'STSong', 'Songti SC', 'SimSun', serif;
+  font-size: 26px;
+  color: var(--ink);
+  margin-bottom: 24px;
+  line-height: 1.4;
+}
+.path-steps { display: flex; flex-direction: column; gap: 14px; }
+.path-step {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.path-step-num {
+  font-family: 'STSong', 'Songti SC', 'SimSun', serif;
+  font-size: 15px;
+  color: var(--sage);
+  flex-shrink: 0;
+  min-width: 20px;
+}
+
+/* ── Five Roles ── */
+.roles {
+  padding-top: 12vh;
+  padding-bottom: 12vh;
+}
+.roles .section-label {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--sage);
+  text-transform: uppercase;
+  margin-bottom: 4vh;
+}
+.roles h2 {
+  font-size: clamp(28px, 5vw, 40px);
+  color: var(--ink);
+  line-height: 1.5;
+  margin-bottom: 3vh;
+}
+.roles-intro {
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 560px;
+  margin-bottom: 8vh;
+  line-height: 1.8;
+}
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+.role-item {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 28px 24px 24px;
+  border: 1px solid var(--border);
+  transition: border-color 0.25s;
+}
+.role-item:hover { border-color: var(--copper); }
+.role-emoji {
+  font-size: 28px;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+.role-item h4 {
+  font-family: 'STSong', 'Songti SC', 'SimSun', serif;
+  font-size: 17px;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.role-item .role-match {
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+.role-item .role-style {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+/* ── Philosophy ── */
+.philo {
+  padding-top: 10vh;
+  padding-bottom: 14vh;
+  text-align: center;
+}
+.philo .section-label {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--sage);
+  text-transform: uppercase;
+  margin-bottom: 5vh;
+}
+.philo blockquote {
+  font-family: 'STSong', 'Songti SC', 'SimSun', serif;
+  font-size: clamp(22px, 4vw, 32px);
+  color: var(--ink);
+  line-height: 1.6;
+  max-width: 640px;
+  margin: 0 auto 4vh;
+}
+.philo blockquote cite {
+  display: block;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', -apple-system, sans-serif;
+  font-size: 14px;
+  color: var(--ink-muted);
+  font-style: normal;
+  margin-top: 2vh;
+  letter-spacing: 0.08em;
+}
+.rules {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.rule-tag {
+  font-size: 13px;
+  color: var(--copper);
+  padding: 8px 20px;
+  border: 1px solid rgba(176,117,69,0.25);
+  border-radius: 100px;
+  letter-spacing: 0.06em;
+}
+
+/* ── Footer ── */
+.footer {
+  padding: 8vh 6vw 6vh;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+.footer p {
+  font-size: 13px;
+  color: var(--ink-muted);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+.footer .brand-sm {
+  font-family: 'STSong', 'Songti SC', 'SimSun', serif;
+  font-size: 20px;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .hero { min-height: 90vh; }
+  .cap-grid { border-radius: 16px; }
+  .cap-item { padding: 28px 24px 24px; }
+  .cap-num { font-size: 36px; }
+  .path-cards { grid-template-columns: 1fr; }
+  .path-card { padding: 32px 28px; }
+  .role-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="container" style="display:flex;flex-direction:column;align-items:center;">
+    <h1 class="brand-word serif">了 了</h1>
+    <p class="hero-tagline">说出来<span> · </span>被接住<span> · </span>被整理<span> · </span>被记住</p>
+    <div class="divider"></div>
+    <p class="hero-desc">
+      一个不评判、不建议、不激励的AI情绪陪伴。<br>
+      只做一件事：帮你看清楚<br>
+      <span style="color:var(--ink-soft)">自己此刻的感受。</span>
+    </p>
+  </div>
+</section>
+
+<!-- ── Core Capabilities ── -->
+<section class="caps">
+  <div class="container">
+    <p class="section-label">Core Capabilities</p>
+    <h2>了了的AI会做<br>四件<span style="color:var(--ink-muted)">别的AI不会</span>做的事</h2>
+    <div class="cap-grid">
+      <div class="cap-item">
+        <div class="cap-num serif">01</div>
+        <h3>命名未命名之物</h3>
+        <p>你心里堵着什么，但说不清楚。了了从你的话里变形出一个有画面感的命名——「卡在那里动不了」「被当众泼了冷水」——不是诊断标签。</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-num serif">02</div>
+        <h3>回扣你的原话</h3>
+        <p>你说的窗帘、阳台、那碗粉——了了会织回回应里。不是模板安慰，是让你觉得「你真的在听」。</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-num serif">03</div>
+        <h3>告诉你不奇怪</h3>
+        <p>当你觉得自己的情绪不对劲时，了了的第一句话永远是告诉你这并不奇怪。「因为你现在经历的，是很少被认真描述的东西。」</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-num serif">04</div>
+        <h3>轻轻翻转你的视角</h3>
+        <p>「我太敏感」「我在浪费时间」——当你这样看自己时，了了会说：「这不是脆弱，这是感受力。」不评判，只是帮你看到另一面。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Two Paths ── -->
+<section class="paths">
+  <div class="container">
+    <p class="section-label">Two Journeys</p>
+    <h2>两条路径，<br>看你想走多远</h2>
+    <div class="path-cards">
+      <!-- 主线A -->
+      <div class="path-card primary">
+        <p class="path-label">主线A · 日记路径</p>
+        <h3 class="path-title">把今天说清楚</h3>
+        <div class="path-steps">
+          <div class="path-step"><span class="path-step-num">1</span>选一个场景——发生在人际、工作、内心还是身体？</div>
+          <div class="path-step"><span class="path-step-num">2</span>选你的感受——委屈、烦躁、疲惫、焦虑、空落，还是还好？</div>
+          <div class="path-step"><span class="path-step-num">3</span>AI以匹配的角色陪你聊。不限轮次，不催你。</div>
+          <div class="path-step"><span class="path-step-num">4</span>当你说清楚了，AI帮你整理成一篇有温度的日记。</div>
+        </div>
+      </div>
+      <!-- 主线B -->
+      <div class="path-card">
+        <p class="path-label">主线B · 即时命名</p>
+        <h3 class="path-title">先把这种感觉说出来</h3>
+        <div class="path-steps">
+          <div class="path-step"><span class="path-step-num">1</span>发生了什么？——把那一幕说出来。</div>
+          <div class="path-step"><span class="path-step-num">2</span>你是什么感觉？——不用想太久，直接说。</div>
+          <div class="path-step"><span class="path-step-num">3</span>你希望有什么改变？——哪怕不可能，说出来也很重要。</div>
+          <div class="path-step"><span class="path-step-num">4</span>了了拢住这三件事，给你一个只属于此刻的命名。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Five Roles ── -->
+<section class="roles">
+  <div class="container">
+    <p class="section-label">AI Roles</p>
+    <h2>五种陪伴形态</h2>
+    <p class="roles-intro">了了会根据你选的场景和情绪，自动匹配最合适的角色。不同时刻，不同的人陪你。</p>
+    <div class="role-grid">
+      <div class="role-item">
+        <div class="role-emoji">🕯</div>
+        <h4>陪伴者</h4>
+        <p class="role-match">人际 + 委屈/疲惫</p>
+        <p class="role-style">节奏温和，不催你。帮你看见情绪里的层次。</p>
+      </div>
+      <div class="role-item">
+        <div class="role-emoji">🧭</div>
+        <h4>稳定者</h4>
+        <p class="role-match">人际 + 烦躁 / 工作类</p>
+        <p class="role-style">帮你把一团乱的情绪拆开，一次理清一个线头。</p>
+      </div>
+      <div class="role-item">
+        <div class="role-emoji">🔍</div>
+        <h4>探索者</h4>
+        <p class="role-match">内心 + 空/焦虑</p>
+        <p class="role-style">从身体感受切入——它在你身体的哪个位置？是什么形状？</p>
+      </div>
+      <div class="role-item">
+        <div class="role-emoji">🍃</div>
+        <h4>照顾者</h4>
+        <p class="role-match">身体 + 疲惫/不舒服</p>
+        <p class="role-style">先关心你的身体状态，再轻轻问这种累和什么有关。节奏最慢。</p>
+      </div>
+      <div class="role-item">
+        <div class="role-emoji">📷</div>
+        <h4>见证者</h4>
+        <p class="role-match">日常 + 还好</p>
+        <p class="role-style">帮你把今天的事说完整，细节让画面更清晰。感受会自己浮出来。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Philosophy ── -->
+<section class="philo">
+  <div class="container">
+    <p class="section-label">Product Philosophy</p>
+    <blockquote>
+      「情绪产品的终点不是理解，是回归。<br>用户进来是因为情绪把他从生活里拉出去了，<br>产品的工作是帮他回去。」
+      <cite>—— 了了 · 产品理念</cite>
+    </blockquote>
+    <div class="rules">
+      <span class="rule-tag">不给建议</span>
+      <span class="rule-tag">不激励</span>
+      <span class="rule-tag">不做诊断</span>
+      <span class="rule-tag">不贴标签</span>
+      <span class="rule-tag">不用「为什么」</span>
+      <span class="rule-tag">不说「你应该」</span>
+      <span class="rule-tag">不用「加油」</span>
+      <span class="rule-tag">不评判</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <div class="container">
+    <p class="brand-sm serif">了了</p>
+    <p>了了是自我理解工具，不是诊断或治疗产品。<br>如果你正在接受临床治疗，请优先遵循医生的建议。</p>
+  </div>
+</footer>
+
+</body>
+</html>
